@@ -1,4 +1,4 @@
-const user = {};
+const trainingService = require("../services/trainingService");
 
 exports.buildUser = function(id, data) {
   return {
@@ -11,5 +11,6 @@ exports.buildUser = function(id, data) {
     username: data.username,
     password: data.password,
     cpf: data.cpf,
+    training: trainingService.getTrainingById(data.training),
   };
 };

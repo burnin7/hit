@@ -1,3 +1,5 @@
+# import {Training, TrainingInput} from "./Training.graphql"
+
 type User {
   id: ID
   name: String
@@ -8,6 +10,7 @@ type User {
   username: String
   password: String
   cpf: String
+  training: [String]
 }
 
 input UserInput {
@@ -19,4 +22,19 @@ input UserInput {
   username: String
   password: String
   cpf: String
+}
+
+type Client {
+  height: Float
+  weight: Float
+  objective: String
+  experience: String
+  care: [String]
+  trainer: User
+}
+
+type Trainer {
+  specialty: String
+  certification: String
+  description: String
 }
