@@ -8,24 +8,24 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-exports.getTrainerById = async id => {
-  const response = await db.collection("trainer").doc(id).get();
+exports.getUserById = async (type,id) => {
+  const response = await db.collection(type).doc(id).get();
   return userFactory.buildUser(response.id, response.data());
 };
 
-exports.createNewTrainer = async data => {
-  const document = db.collection("trainer").doc();
+exports.createNewUser = async (type,data) => {
+  const document = db.collection(type).doc();
   const response = await document.set(data.user).then(() => document.id);
   return response;
 };
 
-exports.updateTrainer = async (id, data) => {
-  const document = db.collection("trainer").doc(id);
+exports.updateUser = async (type,id, data) => {
+  const document = db.collection(type).doc(id);
   const response = await document.update(data);
   return response;
 };
 
-exports.deleteTrainer = async id => {
-  const document = db.collection("trainer").doc(id);
+exports.deleteUser = async (type,id) => {
+  const document = db.collection(type).doc(id);
   await document.delete().then(() => true).catch(() => false);
 };
