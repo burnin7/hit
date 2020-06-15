@@ -20,5 +20,5 @@ exports.updateUser = async (type, id, data) => {
 
 exports.deleteUser = async (type, id) => {
   const document = db.collection(type).doc(id);
-  await document.delete().then(() => true).catch(() => false);
+  return await document.delete().then(() => true).catch(() => false);
 };
