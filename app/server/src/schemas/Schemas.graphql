@@ -1,0 +1,11 @@
+# import {User, UserInput} from "./User.graphql"
+
+type Query {
+  getUser(type: String, id: ID): User
+}
+
+type Mutation {
+  newUser(type: String, user: UserInput): ID
+  updateUser(type: String, id: ID, user: UserInput): Boolean
+  deleteUser(type: String, id: String): Boolean
+}

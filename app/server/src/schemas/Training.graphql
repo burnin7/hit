@@ -1,0 +1,5 @@
+# import {Exercise, ExerciseInput} from "./Exercise.graphql"
+
+type Training {
+    training: [String]
+}
