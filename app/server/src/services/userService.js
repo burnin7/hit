@@ -14,11 +14,15 @@ exports.createNewUser = async (type, data) => {
 
 exports.updateUser = async (type, id, data) => {
   const document = db.collection(type).doc(id);
-  const response = await document.update(data);
+  const response = await document
+    .update(data)
+    .then(() => true)
+    .catch(() => false);
   return response;
 };
 
 exports.deleteUser = async (type, id) => {
   const document = db.collection(type).doc(id);
-  return await document.delete().then(() => true).catch(() => false);
+  const response = await document.delete().then(() => true).catch(() => false);
+  return response;
 };
