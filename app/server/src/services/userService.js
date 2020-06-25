@@ -1,4 +1,5 @@
-const { db } = require("../connect/connect");
+const { db } = require("../connect/connect-admin");
+const register = require("./registerService");
 const userFactory = require("../factories/userFactory");
 
 exports.getUserById = async (type, id) => {
@@ -7,7 +8,11 @@ exports.getUserById = async (type, id) => {
 };
 
 exports.createNewUser = async (type, data) => {
-  const document = db.collection(type).doc();
+  const UID = await register.createUserWithEmailAndPassword(
+    data.user.email,
+    data.user.password
+  );
+  const document = db.collection(type).doc(UID);
   const response = await document.set(data.user).then(() => document.id);
   return response;
 };

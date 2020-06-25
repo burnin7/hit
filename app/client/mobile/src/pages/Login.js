@@ -2,6 +2,8 @@ import React from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
 
 function Login({navigation}){
+    let state = { username:'/', password:'/'}
+
     return (
         <View style={styles.container}>
 
@@ -12,6 +14,7 @@ function Login({navigation}){
 
         <TextInput
         style={styles.input}
+        value={state.username}
         placehouder="Digite seu email"
         />
 
@@ -23,7 +26,10 @@ function Login({navigation}){
 
         <TouchableOpacity
         style={styles.button}
-        onPress={() => {onClick({navigation})}}
+        onPress={() => {
+          console.log(state.username)
+          onClick({navigation})
+        }}
         >
             
         <Text style={styles.textButton}>Login</Text>
@@ -34,6 +40,8 @@ function Login({navigation}){
 }
 
 function onClick({navigation}){
+
+
     return navigation.navigate('Profile');
 }
 

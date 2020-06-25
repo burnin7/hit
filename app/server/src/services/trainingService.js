@@ -1,6 +1,6 @@
 const admin = require("firebase-admin");
 const key = require("../connect/firebase-service-key");
-const { db } = require("../connect/connect");
+const { db } = require("../connect/connect-admin");
 
 exports.getTrainingById = async training => {
   const trainingPath = training.path;
