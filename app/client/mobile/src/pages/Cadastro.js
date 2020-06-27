@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { ButtonGroup, Slider } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import DatePicker from "react-native-datepicker"
 
 function Cadastro({ navigation }) {
   const [userTypeIndex, setUserTypeIndex] = useState(0);
@@ -72,7 +73,8 @@ function Cadastro({ navigation }) {
         />
 
         <Text style={styles.textButton}>Data de Nascimento</Text>
-        <DateTimePicker mode={"date"} value={chosenDate} textColor={"#CCC"} />
+        <DatePicker mode="date" value={''} confirmBtnText="OK" cancelBtnText="Cancelar"/>
+        
 
         <Text style={styles.textButton}>CPF</Text>
         <TextInput style={styles.input} placeholder="Digite seu CPF" />
