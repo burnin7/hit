@@ -11,6 +11,6 @@ exports.buildUser = function(id, data) {
     username: data.username,
     password: data.password,
     cpf: data.cpf,
-    training: trainingService.getTrainingById(data.training),
+    //training: trainingService.getTrainingById(data.training),
   };
 };

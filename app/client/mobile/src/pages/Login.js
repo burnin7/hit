@@ -7,12 +7,15 @@ import {
   Text,
   Image,
 } from "react-native";
+import axios from "axios";
 
 function Login({ navigation }) {
-  let state = { username: "/", password: "/" };
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const data = `{
+    token: loginUser(email:"${username}", password:"${password}" )
+  }`;
 
   return (
     <View style={styles.container}>
@@ -21,22 +24,22 @@ function Login({ navigation }) {
       <TextInput
         style={styles.input}
         value={username}
+        autoCapitalize="none"
         onChangeText={user => setUsername(user)}
-        placeholder="Username"
+        placeholder="Email"
       />
 
       <TextInput
         style={styles.input}
         secureTextEntry={true}
-        onChangeText={pass=> setPassword(pass)}
+        onChangeText={pass => setPassword(pass)}
         placeholder="Senha"
       />
 
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          console.log(username + ':' + password);
-          onClick({ navigation });
+          onClick({ navigation, data });
         }}
       >
         <Text style={styles.textButton}>Login</Text>
@@ -45,7 +48,16 @@ function Login({ navigation }) {
   );
 }
 
-function onClick({ navigation }) {
+function onClick({ navigation, data }) {
+  axios({
+    url: "http://localhost:4000",
+    method: "post",
+    data: {
+      query: data,
+    },
+  })
+    .then(res => console.log(res.data.data))
+    .catch(err => console.log(err));
   return navigation.navigate("Profile");
 }
 
