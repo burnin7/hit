@@ -7,7 +7,11 @@ const loginService = require("./src/services/loginService");
 const resolvers = {
   Query: {
     getUser(_, args) {
+     try {
       return userService.getUserById(args.type, args.id);
+     } catch (e) {
+      console.log(e)
+     } 
     },
     loginUser(_, args){
       return loginService.signUserWithEmailAndPassword(args.email, args.password)

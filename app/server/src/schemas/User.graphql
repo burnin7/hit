@@ -38,3 +38,9 @@ type Trainer {
   certification: String
   description: String
 }
+
+type LoginResponse {
+  token: String
+  code: String
+  message: String
+}

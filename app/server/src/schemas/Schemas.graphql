@@ -2,7 +2,7 @@
 
 type Query {
   getUser(type: String, id: ID): User
-  loginUser(email: String, password: String) : String
+  loginUser(email: String, password: String) : LoginResponse
 }
 
 type Mutation {
