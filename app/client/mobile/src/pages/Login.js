@@ -9,12 +9,18 @@ import {
 } from "react-native";
 import axios from "axios";
 
+let err;
+
 function Login({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const [message, setMessage] = useState("");
   const data = `{
-    token: loginUser(email:"${username}", password:"${password}" )
+    login: loginUser(email:"${username}", password:"${password}" ){
+      token
+      code
+      message
+    }
   }`;
 
   return (
@@ -39,16 +45,20 @@ function Login({ navigation }) {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          onClick({ navigation, data });
+          onClick({ navigation, data, setMessage });
         }}
       >
         <Text style={styles.textButton}>Login</Text>
       </TouchableOpacity>
+
+      <Text style={styles.errorMessage}>
+        {message}
+      </Text>
     </View>
   );
 }
 
-function onClick({ navigation, data }) {
+function onClick({ navigation, data, setMessage }) {
   axios({
     url: "http://localhost:4000",
     method: "post",
@@ -56,9 +66,15 @@ function onClick({ navigation, data }) {
       query: data,
     },
   })
-    .then(res => console.log(res.data.data))
-    .catch(err => console.log(err));
-  return navigation.navigate("Profile");
+    .then(res => {
+      let login = res.data.data.login;
+      if (login.code != "auth/success") {
+        setMessage(login.message);
+      } else {
+        return navigation.navigate("Profile");
+      }
+    })
+    .catch(err => setMessage("Não foi possível executar..."));
 }
 
 const styles = StyleSheet.create({
@@ -95,6 +111,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "#fff",
+  },
+  errorMessage: {
+    width: 300,
+    height: 42,
+    fontSize: 16,
+    color: "#fff",
+    borderRadius: 4,
+    backgroundColor: "#660000",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
   },
 });
 
